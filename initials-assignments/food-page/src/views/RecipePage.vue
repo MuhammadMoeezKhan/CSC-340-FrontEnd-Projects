@@ -1,0 +1,145 @@
+<!-- RecipePage.vue -->
+<template>
+  <div class="recipe-page-container">
+    <h1>List of Recipes</h1>
+    <div class="recipe-list">
+      <RecipeComponent
+        v-for="recipe in recipes"
+        :key="recipe.name"
+        :name="recipe.name"
+        :prep="recipe.prep"
+        :cook="recipe.cook"
+        :total="recipe.total"
+        :servings="recipe.servings"
+        :imgPath="recipe.imgPath"
+      >
+        <template v-slot:ingredients>
+          <li v-for="ingredient in recipe.ingredients" :key="ingredient">{{ ingredient }}</li>
+        </template>
+        <template v-slot:directions>
+          <li v-for="direction in recipe.directions" :key="direction">{{ direction }}</li>
+        </template>
+      </RecipeComponent>
+    </div>
+  </div>
+</template>
+
+<script>
+import RecipeComponent from "@/components/RecipeComponent.vue";
+
+export default {
+  components: {
+    RecipeComponent,
+  },
+  data() {
+    return {
+      recipes: [
+        {
+          name: "Spaghetti Bolognese",
+          prep: "15 minutes",
+          cook: "1 hour",
+          total: "1 hour 15 minutes",
+          servings: "4",
+          imgPath: "data:image/jpeg;base64,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",
+          ingredients: ["500g ground beef", "1 onion", "2 cloves garlic", "400g tomato sauce", "Spaghetti"],
+          directions: ["Saute onions and garlic", "Brown ground beef", "Add tomato sauce and simmer", "Cook spaghetti and serve"],
+        },
+        {
+          name: "Chicken Alfredo Pasta",
+          prep: "20 minutes",
+          cook: "25 minutes",
+          total: "45 minutes",
+          servings: "3",
+          imgPath: "data:image/jpeg;base64,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",
+          ingredients: ["300g fettuccine pasta", "2 cups cooked chicken", "1 cup heavy cream", "1 cup grated Parmesan", "Salt and pepper to taste"],
+          directions: ["Cook pasta according to package instructions", "In a pan, heat cream and Parmesan until smooth", "Add cooked chicken and pasta", "Season with salt and pepper"],
+        },
+        {
+          name: "Vegetarian Stir-Fry",
+          prep: "15 minutes",
+          cook: "10 minutes",
+          total: "25 minutes",
+          servings: "2",
+          imgPath: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBEQACEQEDEQH/xAAcAAACAgMBAQAAAAAAAAAAAAAFBgMEAAIHAQj/xAA4EAABAwIFAwIEBQMDBQEAAAABAgMEBREABhIhMRNBUSJhFDJxgQcjkaGxQmLBJFLwFlNyktEV/8QAGgEAAgMBAQAAAAAAAAAAAAAABAUAAgMBBv/EADERAAEEAAQEBAYCAwEBAAAAAAEAAgMRBBIhMUFRYfAFE3GRIoGhscHRI+EUMvFyBv/aAAwDAQACEQMRAD8A6tWqzDodMfqFRcDUdkXN+VHsB5OLqtr5rz1nWo5uqCnH1qahoV+RGSrZI8nycVJtcSsBfHFFhFjbviKKUNjpqOm5tsb8YoTqrALRLSnF2YSpQJABNhv/AIxb1VTSMVTLMmmuIbdlRFrLaVrSl0akE9rHc/XGDMSx4sIjDYZ+J/0+qryaM4hakx1oe4sELBvcDvjv+Qy6KLHhGKLczaPof3SGrQppakOpKFpNlJULEHxbG412S1zS00RqvMRcWYiizEUT1+KecXcx1lcaMtQpsNZQ0nstQ2Kj59sWceCiRicVUW6SAL44or1GpcipSLtxpDraeS02pX8YwxGIZCNSAfVaxROedAmSPTqY6tcSbC6T/pZbUCtKkk9yAd+e47d8AGaYkGM6e6ZQ4aN4pw12CqzqPSqXL+GLrz0hlKSUJUFAqIvc+kBPPFzgp8z3C26DmtsPhMLA653W4cB3+Vr8I65JSp1aorLw1LWptNzf/aATce5xQuZl01KXzeISRPy1lB2pSV1qh0pxtuJMmOyUka1JV8p7+325x2MSPHClIsU5soc4mrRBNSamy5UxiApcHQEBx5v53DyoqsTc34Jtz5tjKRpY0Nuj66pzBJhcRiXF2ug4aadNOg+SVqjD6EssRG3C264HUtX1AJFwASADtc72HODYZc7LPBKMdhhDNTNjqFPUMuSYdOVMWUagdammwqyWzwd9+e3i3vijMZE9+QLOTBSsZnKCvNqZXpcsDa4NwQR5B4IwUhKpYecRRZt3xFEbojdPhNNT6swqUHFER4ieHLbFSj4B2t+xwHiTM8+XEcvM/gdUbAyKNvmS63sP2jj+eaxHSluBGjxGE/I003fSkft+wwvHg+GeT5hLjzJW58QmOjGAD3RePmiZPhsLrFLTPbCwsKaCkrZPYgjcHa9x+uMh4a2B94dxafXQphDIySO3b9ArdaZiTFR6y6pSo+lCRKU5pVe9tLn6WueBe/AGNcPNJJmjcPjHdhTGxx+WHbG/lR771Sm7UH8w1dqNT4hfStwtsD5U+d1DcAXuTfV7jDCOHy2AONd/VJABI7a0bl5CqaYrqpLlOW+kflNtFVk2N9KBYAC3t7nGX+QxjtSa73RzsI+RmgF/ZaZNzC3Ddk0ioUx91bv5fwbdyVWve6Sd1DwAPO25OWPhL6lYRohMI10chaTRV+GKc9WaoGIy4J0oQph8+tmw3CST8t7n72wDi5HtYwtGh5ahNsMXSOJk1cFFmFMOn0degLWty6Uq1myz3278jb6Y5hXSTSihQV8S7Kx1rl6lFwjXp9ICQN9gMelXm1K4kBAUFJUTe6Re6frtb9L44DquJ1oX4fmowFzZEs/DlGpp1kEA7XBsoX+1h9cLZ/ECx2VjfW+COjwgcLc7dWfw+pLEtSDUocZ5qNrR+cLpuo33vt25/uxhjpnNdUTqJ15bIvDwgxjzBt+St6zVadHmTotMSIUZpz1pQLlZ/qso8DsAPBxWOJ7gHyak7dEWMHh5sO4NfWU6+3YVxlynRKO1UaE7KkPONht1hgAlrYqCjcXF9Ktvb7YqPPLi2Qga967JbBiYMPOHhgDSdbs2Og2v5KtPrDLVN6dVgzVIU7dWuZpWy4BsbAXvve1iLYMZC9rtN65/VM5MfgpZA0mh/wCeF+v2XkWehbrLsaUkusI6xlvrJEdSdglV/mBudrAc874q7MTmdd7Vv7Ls7MPCaYBR1sED35d6BOFRzFUGaah9imsVIXT+bGdKhubAqQQNrnyrzxgYPbIRFevX7UCfr8lweWz432B0r7n8BJFXNbiVuPV5UbpSVrD7gUEhAAB0n03Wbc7A+cFR5Jo3Q5iCfUH2pB4uQx4hrsoqtBd6De9OZVtmErMcONKeUBUG31Myng4UaE7m9wbKAO9jfY84D82PBufGRYq2jn81ZzZJ2tkboRof+L3MOTXqTT3qlAqTsnpgataiksi9ypP7f4xzBeJNmk8pzQ302KzeZcMC8G+p4dUiVOE4/NcXFZ1o7qTuL98OIXhrKedVzxaPNic0I0IGyrxGkypbLClaUuOBKleATuf0xpI7Iwu5BLImZ3hvNdthzo71NTT4TjyEob6YJ9ZNhYdseVc97n6jdehELAFSokJ2kUAxWUmVNWsoSAjZbilEC/tv+gPjBUv882m2i4wGOMXumKVlekwMqOs1JtqUG45/NKBqLhTuU+CSexwdhrjeXOdYO3Tp8krnfmboguQ6MldPk0aps9RuXDS7d1wa1KSspJuL23tbc/fFSWvncW8drS4gO0cl6dR2YlUV1G3wFhRajSw2FNuja6yL3JJ2sLe4tjUPDmFux2/4mGFw8ZmDy2y6teQUuY6VSaHmJiC3JZZZVHS5JaeQlYkK1myQCLAfNt9PAtriJZI2Wxtn7LdsERIs1f1VBC326mGcvqlNqlIUQyhBUwmxIJCdtNjYc2274EZlezPOBY48VpJG9jssex9gr+Xa38G/Fm1VppqQXHGtI1KQlu+9ki5SRx7YwmYfMc2Hb21Ku6LETNjkrUCjzIB371Vmp1GDFzSzKjhJh1RPSfbJsEPAXQbDze32wNDG58JBGrNR6cfY6ov4onNBOjtL+369kJXV6y3Er1OXCVJjKSGmXSolbeu4SO+rbvtx7jBjcFBI6KeM1RukHN5pzxOHA6pWjt1dhlHwzSQ24Asa7Am/ex7Ht5Fj3wweIifiOqEL5GgNFGgOSo0YoZmMynGC+y0sh5CFerSR83Nxbfe1hYc3wRKC5haN0Lhy0PDnbLpUytU1uiPORpii4tP5bKVArHBuObbd8I48O9z8taJtLM2IZy7T7oFCrFbjyGptJkn4uOj1pdQVh0E3HY2PzC+21tzY4ZRwMaLcKrX0SsY2WcfFp06KWs16tZgbfXUJjSo8ZSrM9QNp1FQ032sQLWF979+LQub8J1s/ZVdDJK05HVXdJdartSgTUrZna9CE+qLwE+D/APCCP5xt5Mb26hYxSOq6r1RsV6bIddk1I1aK6sf6VYB0nsUrKt7WHPtxjHy2tZ/Hr1R2Cle7GRg1Vi0Wo2uU/IkyEsyIkgJjutLcUbKsoi+r+ki+9/PGAZXPjjDmO1BR3/0DZGSMz60BqNBuURyPFnUuUilKhvBCHHVhakg/6ckkKueN9ve/g4tKyaQ5wNwL9R2VbDuiOEGY0Qfv072UGa8tuy6702mhGjltaor7PCXjc6VfUjvfYbG+JFI2KNznCxxUcXvLchohCqRl5MhicqU80+/DjtvgtOlaAdaht3skJ02Hjvjed5yAxDffn3xQeCnE8/8ALty6rbNgXIZUhh8KaAQClIsASk7G/wCvjfzfA2FuIBp73XqWRMnhkPHX6Um2jZTcZpjDcia2t0AlSloLhUSokkknkkk4GlxbpHlwql5Y+HtP+7jfRKmV/g3MoOJTJZaUltSFNuOAal2JNwfc/vj0jnDIUtDS5wAVipZUXUKdTZdNeTKlNoDc1t2yeoLmygOwPyjbx74T4bFNGZpFA/Tlff3RUvhAw4qPfv7cuSjiU6bDfMgMopjRR0EsPAFyQbbrKd7778kbC1rY0mmpmhu+qXPbiIJWiNhJVlNRgUCsSYj9Iqb7C1BLchqKhTjo3un1AWSSbgg+PGJG0ujDoyNOZ4c+iZRSPDLlFX0+6KzjR6dSHqwqhx6X0NaIbCmrLWrjW4CASeLc4tJZysJsu2HfBC4h5caYrHxUrMFBlSqk3AMlKULbjuMAtDSPlueTYm19gfpijJyZav4fRHR4IxDM7V3fe61p9Kgw82IbhIjtRxHD78ZxaiL3I2FyCfUkgcbe+Jh/5HZnVpY9UbipXOiDXa/0mYNU598SIM7q/DrAW6y6laUoCrqQs+xB9wCRg10uTQWgcmfU0kaRmP8A/WrEhxADEQBa47pTrUtCjp1C3AOk7c79sB4iJpPxHfh6dVweJMilZEBZOlqauu02g1Gn1bLMyO6hbJYlw203UpB4Kk8252sP5xsfLkGVpq+nFR0UrDnLdkCqM41iI63Ggrp8h06y08kJDRQhWqwG+9k7W3t2wIGmGmyG65L02Ez/AOG+ccQRr1qj11tMWXc50x+lNKlvhp9PpWhfIIwvmwUrHkBthKmTteLJpcggw1TpQbR86iAk27k2H7kY9UTlFrz+atl0lzKT2VYPxpr8huQyPUtNumm5GpO/2/qHbCJuOjneWlml6Vv/ANG+nDim7GyRtvN7qemoztUIUWruOMoZLWpCutfZVt1JuTxt9we2NZGxQtcNSPULJuLErhVA+ilhZoYpUVyRXKiufOV8jWgAINyPSkcm1j9/bGIiEj7jZfrt6k/ZBz4uWX4G7elKnRKpGzK9IcnNl2pOFSGm5ZIZYTa2sq5K7bbcY2kacMbc7fc9/wBDjfBGYLDNc08SqVXodXg6VVqfppSHOp8RGGtsWIOk2BV/7H9cWbLCW5oW246DX+yiHNlzU91DfvRQTKvV5eYhIpSX2ZVumyFtFR6dhfULEFJ539vG1sNEI46cb513wVMTjGgFhjIPA9OOi0zLU851UMwanLZbYcNtEf0NqPbXYXI9vvbvgxoja3OlzpjIMvNFafT6uiM7Tqp8O27HeEpl5xhLhRa4Kre4HAtfbC+SaJxpp+F3Wv7Q0d4SYOr5FM0est/9ONNZn0OqkJLUgMtlACV3SLDm1iLnnc8YTzYZjZ6wdhwv56e371TOHGCV5Y/igbtEkU+sNzGY4n0RbSlamHAFhvSBsAANu1tiBguLEjEMIf8ADJvVacu+XVN8X4j5OGZEBTQdTvr3qmeizKPIp7blOjVJ2NYaFA9MEWHA1Jv9bc33xabFGF2R519T+AgY4fMbmAXBGJLkJ9DzPzJII+oIUP3AP2x6JzQ5padikwNGwvoJFXptTgUqtGy6e88gPqUNQbJBACx4Cj9BseBjzGEDocT5bhqNO+lbe1JsSHx2FBXKQzluLMnx3kqjIbuIzwKkpSBbS36hpTbtva1tsFTipGggWTvpZ75qQRREl2X5pTapLFBvWYZCC+4jopSyHGHm12tsogjwd9j5uMbR4p0sgiIrT7bhdnwzMpeDralku0CrvJjPUtqPPLvSCkehKV/7CTui/G+wJH1xsM4cQDXrt6jl70sWxiNvmB1jjwXqanEpEJyfRq4hDEdBQ/Tak51FOOd2wOQdvcHAxhe51Fup4jb9H6eqMGIaW2TY74737+iP0eqUvPlDXF6LsB9pPoUFJUWT/ae6fYi1sdc4wSZTv9/z+uaykh82PONj799eKAxKVXMvFIqgZn0tuT+bKaSddvl0kJ9XftqxeSZk4DR6UduuqEOHMZ1TBm+TSZJZnwKgGpo0MqbeWUKSLEhQBtY++37YGlkZLT47sd77ITExnJZ4JMn/AB0WchyE2mWnmWw65qLHo1AKJA9NhqC0nsDcEi5cOGA1uj3aGYx7PiaaK2paFQH4lKnT0zIklzrCMTfpnk6lA3Te/F9yb2N9+YjKQZqogVfTom2FldM7yZBYO339un4XTRnLLkImOla29G2lDKUjjtx+2MQYhw36JpH4RjJW5hXuvmjTfnD1ecpMORW5ztdix4EltIW6FrjvvKQ08APlIANz42wPiI2PbrvwPJEYd5a6+Cfsx0GuzaTIRDefhU9KiHIr6wttKQN+mqxWU7bJB9tsLQ4Rygzt1G1f9pMSxr25YTuk+TVZ0ahM07oMyIhSptEiTELlk3uNIUOfe3gi2N444fPe9p1NcrHNWlbOyBoc00Ohrpf9rMj0tmvVr4Kc8+ltcfWS3YFejTpAJ9j7bDb23mIYLQsH8pcDxC6FUst0WHEUalHRLhmyFSXEpD0e+wOvnT234uMLRiJQT5ew4Dceg19ipNhAwW1B3akiLJRTp6jEkRkaYlTZSVa2rekr7GwABumwtcAdruJnaHhtjlrYP5+XsmGDniLfKc6ncjVHvlYtSVZ2sfBQY82eXKawnWpcIpSHF72KrklV+ewBvztjOKWDKYqOnzq/ossb4XJiWuzOFn5ftV49coK5ynKgKmZr6UMFbawjUkbi9iLDm5uR5OMHYfFsblwrhl31WbY2yPDJW07bib9v0iKo2XmpaIjc+VAfaOnStwH5O2o3424V98YNk8RY4ucwOI5f0ipvD442tc8Vm21390RqOWmJrRqFEmMrqKpDcourcuhxSBpG4BI9J99wDjGLxFzPglB0B9d74/vUIMYVzJfMvTvkgzv4dyag+7LnVJth91WpTTCNSU+1yLnDjCYuB0IyGx1RMk02Y5TQ6LlUiM+wT1mlpAWpGoj0lQ5APB8/Q4dbGkj6ryFJdhSkSorymZDR1tuJ5SR3xxwsUutcWmwvo/K1QXPydHEtDgmohjrNu7KKtPP3tfCOR7CyRo1q0ww8jZHNe06WFW6Ed+ntX9SFp2CUDgjc3wGxuWIDmnBLhMeYSBW6lHyhKQIUKQ9MKyoy5FglLQJ9CD32PfzhjFD57NDX79EkfGzB4oPr4TrXrv36I5JzvRnqU6HW3G3nmN48xIQk6ha+5BUPUDsLkG9sZjDysksA2PTv6BNj5BZndIMnzv0rsJYlVimLp4o7LqA7qWGHoawhq+ri6tNhp2Crqt/BrI3lxe4d9V5N3xOLiOKBSviKHPUzBqclDIClKSypaQkA6dRF9rgn9bY1LS5t1qmOExD6yveaHso24FQqzqDDYcsjfquJIBJ/5/y2MQGQtJf7JnD500zXQ8OJ0CZcpUeJOrCoEypKMtCOo4sFJuu42sb3HnAsk7mjOBQOiY49rTD5Dn53jU98PRFaplzNdMihMKY6/TI3EaEAV6b3GlJsRzwDuP0xxk0cjS1w15nUd+yUtLmOBu/ulCdnavQpbsaNUFONNqsCUq2/t3INxx9sFw4GLLbbF8tFjNjXh5FArb8RqfHiVaQWEaSl3pj/AMdCVAfbUQPYAdsNZBxSpnEJUW0lLMZwEkuglQPGyiP8YxBskclo4fCCiQrlVadbnM1CQ3JYa6aHEr/p5sRwR9cYDDRAFuXQqQNEI/j0XX/wvnSKrlRlc5fUUh5TYNrbC5wtmjayQsGwr6i0+ErnsZIdyDfyNKPP8UuUiVIQ+40WGlelKUELG+x1JJHHYjnFcGa1rdLvFGhzWXwXNM2aVtUdaW0NAU9B0NiybqJJ/U9+cM4XZr9VjOP42noqwnqlNNKkMMuEAadQPpSlYskb7Cx+uOsjANBBOjDZi0bftOeRqDBqESPUJiS4+64lsnSkBIAsNNhsbAcYHmkdeQaL0mFwsUcWcDWrV2pxQ/X1UnqONxtdrt2Soi9vGF0zWwnOBZvim/nP8kZTltt6fjl8kyUz8N8twJJlNRn1OoCiCt9XO29xvfc47PjJXtLCdCOXovNhoa7ON73SRkbO9bXNnx330PNICi2lxN+na9gN/wCb41xsTYWMezQlb4Qee5wfwSl+IDq1Zyqi1kKUpaFElI/7adsMMEcuGZXK/dLcVpM4L//Z",
+          ingredients: ["1 cup broccoli florets", "1 bell pepper, sliced", "1 carrot, julienned", "1 cup tofu, cubed", "2 tbsp soy sauce"],
+          directions: ["Stir-fry vegetables in a wok or pan", "Add tofu and soy sauce", "Cook until vegetables are tender", "Serve hot"],
+        },
+      ],
+    };
+  },
+};
+</script>
+
+<style scoped>
+/* Add your component-specific styles here */
+.recipe-page-container {
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.recipe-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+/* Apply styles to RecipeComponent (you can also import this component's styles here) */
+.recipe-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.recipe-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.recipe-detail {
+  flex: 1;
+}
+
+.recipe-image {
+  height: 200px;
+  width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.recipe-section {
+  margin-bottom: 20px;
+}
+
+.recipe-section-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.recipe-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.recipe-list li {
+  margin-bottom: 5px;
+}
+</style>

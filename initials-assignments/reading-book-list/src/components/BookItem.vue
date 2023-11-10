@@ -48,7 +48,7 @@ export default {
 }
 
 .book-cover {
-  max-width: 100px;
+  max-width: 100vw;
   height: auto;
 }
 
