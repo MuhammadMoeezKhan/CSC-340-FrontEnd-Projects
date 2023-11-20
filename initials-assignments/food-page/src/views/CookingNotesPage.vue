@@ -1,4 +1,3 @@
-<!-- CookingNotesPage.vue -->
 <template>
   <div class="cooking-notes-container">
     <h1>Cooking Notes</h1>
@@ -23,7 +22,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add your component-specific styles here */
 .cooking-notes-container {
   max-width: 100vw;
   margin: 0 auto;

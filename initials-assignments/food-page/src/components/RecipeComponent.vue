@@ -1,4 +1,3 @@
-<!-- RecipeComponent.vue -->
 <template>
     <div class="recipe-container">
       <h2 class="recipe-title">{{ name }}</h2>

@@ -1,4 +1,3 @@
-<!-- HomeView.vue -->
 <template>
   <div class="home-container">
     <h1>Home Page</h1>
@@ -18,7 +17,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add your component-specific styles here */
 .home-container {
   display: block;
   max-width: 100vw;

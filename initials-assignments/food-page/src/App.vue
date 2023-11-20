@@ -34,7 +34,7 @@ header {
   padding: 1rem;
   position: sticky;
   top: 0;
-  z-index: 1000; /* Set a high z-index to keep it above other elements */
+  z-index: 1000; 
 }
 
 .wrapper {
