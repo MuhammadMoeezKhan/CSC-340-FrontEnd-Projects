@@ -2,7 +2,6 @@
   <div class="riddle-form">
     <h2>Riddle Quiz</h2>
 
-    <!-- Riddle 1 - Checkbox Riddle -->
     <div class="riddle-question">
       <h3>Riddle 1</h3>
       <p>What are Einstein's favorite colors?</p>
@@ -12,11 +11,9 @@
           {{ option.charAt(0).toUpperCase() + option.slice(1) }}
         </label>
       </div>
-      <!-- Store correct answers -->
       <input type="hidden" v-model="correctAnswers.riddle1" value="red,blue,green" />
     </div>
 
-    <!-- Riddle 2 - Radio Button Riddle -->
     <div class="riddle-question">
       <h3>Riddle 2</h3>
       <p>What is the capital of France?</p>
@@ -26,11 +23,10 @@
           {{ option }}
         </label>
       </div>
-      <!-- Store correct answer -->
+
       <input type="hidden" v-model="correctAnswers.riddle2" value="paris" />
     </div>
 
-    <!-- Riddle 3 - Dropdown Option Riddle -->
     <div class="riddle-question">
       <h3>Riddle 3</h3>
       <p>Which planet is known as the Red Planet?</p>
@@ -41,18 +37,16 @@
           <option value="venus">Venus</option>
         </select>
       </div>
-      <!-- Store correct answer -->
+
       <input type="hidden" v-model="correctAnswers.riddle3" value="mars" />
     </div>
 
-    <!-- Riddle 4 - Fill in the Box Riddle -->
     <div class="riddle-question">
       <h3>Riddle 4</h3>
       <p>Complete the sentence: The quick brown ___ jumps over the lazy dog.</p>
       <div class="fill-in-box">
         <input type="text" v-model="response.riddle4" placeholder="Your answer here" />
       </div>
-      <!-- Store correct answer -->
       <input type="hidden" v-model="correctAnswers.riddle4" value="fox" />
     </div>
 

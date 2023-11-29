@@ -3,6 +3,7 @@
     <header>
       <nav class="nav-links">
         <router-link class="nav-link" to="/">Home</router-link>
+        <router-link class="nav-link" to="/about">About</router-link>
         <router-link class="nav-link" to="/riddle">Riddle Quiz</router-link>
         <router-link class="nav-link" to="/results">Quiz Results</router-link>
       </nav>

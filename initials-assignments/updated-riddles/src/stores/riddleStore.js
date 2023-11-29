@@ -10,30 +10,46 @@ export const useRiddleStore = defineStore({
       riddle3: 'mars',
       riddle4: 'fox',
     },
-    userResponse: {},
+    userResponse: {
+      riddle1: { options: { red: false, blue: false, green: false, yellow: false } },
+      riddle2: '', // Radio button response
+      riddle3: '', // Dropdown option response
+      riddle4: '', // Fill in the box response
+    },
     userResults: [],
   }),
   getters: {
-    getAnswers: (state) => state.answers,
-    getUserResponse: (state) => state.userResponse,
-    getUserResults: (state) => state.userResults,
+    getAnswers(state) {
+      return state.answers;
+    },
+    getUserResponse(state) {
+      return state.userResponse;
+    },
+    getUserResults(state) {
+      return state.userResults;
+    },
   },
   actions: {
     submitRiddleForm(userAnswers) {
-      // Use pinia to access the store state
-      const pinia = this.$pinia;
-      pinia.state.userResponse = userAnswers;
-      this.calculateScore();
+      this.userResponse = userAnswers;
+      this.calculateScore.call(this); // Ensure 'this' refers to the store instance
     },
     calculateScore() {
+      console.log('userResponse:', this.userResponse);
+    
       let score = 0;
-      const pinia = this.$pinia;
-
-      for (const riddleKey in pinia.state.userResponse) {
-        if (pinia.state.userResponse.hasOwnProperty(riddleKey)) {
-          const userAnswer = pinia.state.userResponse[riddleKey];
-          const correctAnswer = pinia.state.answers[riddleKey];
-
+    
+      // Assuming that the structure of userResponse matches the answers structure
+      for (const riddleKey in this.userResponse) {
+        if (this.userResponse.hasOwnProperty(riddleKey)) {
+          console.log('riddleKey:', riddleKey);
+          
+          const userAnswer = this.userResponse[riddleKey];
+          const correctAnswer = this.answers[riddleKey];
+    
+          console.log('userAnswer:', userAnswer);
+          console.log('correctAnswer:', correctAnswer);
+    
           if (typeof userAnswer === 'object') {
             // Checkbox type
             const userOptions = Object.keys(userAnswer.options);
@@ -50,9 +66,10 @@ export const useRiddleStore = defineStore({
           }
         }
       }
-
+    
       // Add the score to the userResults array
-      pinia.state.userResults.push(score);
+      this.userResults.push(score);
+      console.log('userResults:', this.userResults);
     },
   },
 });
