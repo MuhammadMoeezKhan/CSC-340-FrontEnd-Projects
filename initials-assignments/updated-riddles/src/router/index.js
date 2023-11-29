@@ -11,8 +11,7 @@ const routes = [
   { path: '/results', component: RiddleResultsView },
 ];
 
-// Use a relative path for routerBase
-const routerBase = '/'; // Change this based on your deployment configuration
+const routerBase = '/';
 
 const router = createRouter({
   history: createWebHistory(routerBase),

@@ -10,8 +10,8 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-// const pinia = createPinia()
-// app.use(pinia)
-// pinia.use(useRiddleStore)
+const pinia = createPinia()
+app.use(pinia)
+pinia.use(useRiddleStore)
 
 app.mount('#app')

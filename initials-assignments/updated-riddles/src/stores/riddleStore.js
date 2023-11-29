@@ -1,4 +1,3 @@
-// riddleStore.js
 import { defineStore } from 'pinia';
 
 export const useRiddleStore = defineStore({
@@ -12,9 +11,9 @@ export const useRiddleStore = defineStore({
     },
     userResponse: {
       riddle1: { options: { red: false, blue: false, green: false, yellow: false } },
-      riddle2: '', // Radio button response
-      riddle3: '', // Dropdown option response
-      riddle4: '', // Fill in the box response
+      riddle2: '', 
+      riddle3: '', 
+      riddle4: '', 
     },
     userResults: [],
   }),
@@ -32,14 +31,13 @@ export const useRiddleStore = defineStore({
   actions: {
     submitRiddleForm(userAnswers) {
       this.userResponse = userAnswers;
-      this.calculateScore.call(this); // Ensure 'this' refers to the store instance
+      this.calculateScore.call(this); 
     },
     calculateScore() {
       console.log('userResponse:', this.userResponse);
     
       let score = 0;
     
-      // Assuming that the structure of userResponse matches the answers structure
       for (const riddleKey in this.userResponse) {
         if (this.userResponse.hasOwnProperty(riddleKey)) {
           console.log('riddleKey:', riddleKey);
@@ -51,7 +49,6 @@ export const useRiddleStore = defineStore({
           console.log('correctAnswer:', correctAnswer);
     
           if (typeof userAnswer === 'object') {
-            // Checkbox type
             const userOptions = Object.keys(userAnswer.options);
             const correctOptions = Object.keys(correctAnswer.options);
             const isCorrect = userOptions.sort().toString() === correctOptions.sort().toString();
@@ -59,7 +56,6 @@ export const useRiddleStore = defineStore({
               score++;
             }
           } else {
-            // Other types (radio, dropdown, text)
             if (userAnswer === correctAnswer) {
               score++;
             }
@@ -67,7 +63,6 @@ export const useRiddleStore = defineStore({
         }
       }
     
-      // Add the score to the userResults array
       this.userResults.push(score);
       console.log('userResults:', this.userResults);
     },

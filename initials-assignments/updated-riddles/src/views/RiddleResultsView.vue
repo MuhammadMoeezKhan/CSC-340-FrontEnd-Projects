@@ -33,14 +33,12 @@ export default {
   computed: {
     ...mapState(useRiddleStore, ['userResults']),
     totalQuestions() {
-      // Calculate the total number of questions
       return Object.keys(this.userResults[0].userResponse).length; // Adjust this based on your questions
     },
   },
   methods: {
     ...mapActions(useRiddleStore, ['submitRiddleForm']),
     backToQuiz() {
-      // Use router to navigate back to the quiz form page
       this.$router.push('/riddle');
     },
   },
